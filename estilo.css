@@ -595,7 +595,7 @@ button, input { font-family: inherit; }
 .coluna {
   display: flex;
   flex-direction: column;
-  gap: 20px;
+  gap: clamp(12px, 1.85vh, 20px);
   min-height: 0;
   max-height: 100%;
 }
@@ -604,7 +604,7 @@ button, input { font-family: inherit; }
   background: #FFF;
   border: 2px solid var(--linha);
   border-radius: 20px;
-  padding: 30px 34px;
+  padding: clamp(16px, 2.8vh, 30px) clamp(20px, 3.2vh, 34px);
   display: flex;
   flex-direction: column;
   min-height: 0;
@@ -623,18 +623,18 @@ button, input { font-family: inherit; }
 }
 
 .secao-nome {
-  font-size: 26px;
+  font-size: clamp(19px, 2.42vh, 26px);
   font-weight: 800;
   letter-spacing: .1em;
   color: var(--acento);
 }
 
-.secao-dica { font-size: 17px; color: var(--tinta-media); margin: 6px 0 16px; }
+.secao-dica { font-size: clamp(14px, 1.58vh, 17px); color: var(--tinta-media); margin: clamp(3px,.6vh,6px) 0 clamp(9px,1.5vh,16px); }
 
 .secao-corpo {
-  font-size: 24px;
-  line-height: 1.6;
-  margin-top: 14px;
+  font-size: clamp(17px, 2.23vh, 24px);
+  line-height: 1.55;
+  margin-top: clamp(8px, 1.3vh, 14px);
   color: var(--tinta);
 }
 
@@ -655,7 +655,7 @@ button, input { font-family: inherit; }
 
 .copiar.is-feito { background: var(--acento); border-color: var(--acento); color: #FFF; }
 
-.ganchos { display: flex; flex-direction: column; gap: 13px; }
+.ganchos { display: flex; flex-direction: column; gap: clamp(8px, 1.2vh, 13px); }
 
 .gancho {
   display: flex;
@@ -665,7 +665,7 @@ button, input { font-family: inherit; }
   border: 3px solid var(--linha);
   background: #FFF;
   border-radius: 16px;
-  padding: 22px 24px;
+  padding: clamp(12px, 2.04vh, 22px) clamp(15px, 2.2vh, 24px);
   cursor: pointer;
   transition: all .2s var(--curva);
 }
@@ -674,7 +674,7 @@ button, input { font-family: inherit; }
 
 .gancho-numero {
   flex: 0 0 auto;
-  width: 40px; height: 40px;
+  width: clamp(30px, 3.7vh, 40px); height: clamp(30px, 3.7vh, 40px);
   border-radius: 50%;
   background: var(--linha);
   color: var(--tinta-media);
@@ -685,7 +685,7 @@ button, input { font-family: inherit; }
   transition: all .2s var(--curva);
 }
 
-.gancho-texto { font-size: 22px; line-height: 1.5; font-weight: 600; }
+.gancho-texto { font-size: clamp(16px, 2.04vh, 22px); line-height: 1.45; font-weight: 600; }
 
 .gancho.is-ativa { border-color: var(--acento); background: rgba(214, 36, 110, .07); }
 .gancho.is-ativa .gancho-numero { background: var(--acento); color: #FFF; }
@@ -695,7 +695,7 @@ button, input { font-family: inherit; }
   display: flex;
   justify-content: flex-end;
   gap: 14px;
-  padding-top: 20px;
+  padding-top: clamp(12px, 1.85vh, 20px);
 }
 
 /* ============================ GERAÇÃO ==================================== */

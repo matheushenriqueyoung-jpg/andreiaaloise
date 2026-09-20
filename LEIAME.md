@@ -183,12 +183,19 @@ package.json        o comando npm start
 
 ## 10. O que foi verificado
 
-Antes da entrega, num navegador de verdade, em 1920x1080, 1600x900 e 1366x768:
+**Grave em 1920x1080.** É a resolução para a qual a tela foi desenhada e onde
+tudo foi conferido por completo, num navegador de verdade:
 
-- as 48 referências (8 por nicho), nos dois tipos de fechamento, abrem sem
-  texto cortado e sem bloco vazio;
+- as 48 referências (8 por nicho), nos dois tipos de fechamento — 96 combinações
+  — abrem sem texto cortado e sem bloco vazio;
 - a grade mostra as duas fileiras inteiras, sem barra de rolagem;
 - do clique em "Gerar meu roteiro" até o roteiro na tela: 1,7 segundo;
 - gerar novamente produz exatamente o mesmo roteiro;
 - `Esc` volta para o início com o campo limpo, de qualquer tela;
 - nenhum erro de console em nenhum momento do fluxo.
+
+Em telas mais baixas (1600x900, 1440x900, 1366x768, 1280x720) a grade também
+mostra as duas fileiras inteiras, sem rolagem e mantendo o formato 9:16. Na tela
+de resultado, o tamanho do texto acompanha a altura da janela: em 1080 ele fica
+no tamanho cheio, e em telas mais baixas encolhe o necessário para o roteiro
+caber inteiro sem rolagem.
