@@ -1,0 +1,10 @@
+{
+  "name": "roteirista-de-bolso",
+  "version": "1.0.0",
+  "private": true,
+  "description": "Roteirista de Bolso — ferramenta do LCS. Aplicacao estatica, sem backend, sem API, 100% deterministica.",
+  "scripts": {
+    "start": "node servidor.js",
+    "dev": "node servidor.js"
+  }
+}

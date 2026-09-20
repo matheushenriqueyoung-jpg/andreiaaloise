@@ -1,0 +1,789 @@
+/* ============================================================================
+ *  ROTEIRISTA DE BOLSO — ESTILO
+ *  As cores vem do arquivo dados/conteudo.js (window.RDB.marca) e sao
+ *  injetadas em :root pelo app.js. Nao precisa mexer aqui pra trocar a marca.
+ * ==========================================================================*/
+
+:root {
+  --acento: #D6246E;
+  --acento-escuro: #A8154F;
+  --tinta: #1A1024;
+  --papel: #FFFBF7;
+
+  --tinta-media: #574263;
+  --linha: #E6DCE4;
+  --cartao: #FFFFFF;
+
+  /* A miniatura e 9:16. A altura e calculada pra caber sempre 2 fileiras
+     inteiras na tela, sem rolagem, em qualquer altura de monitor. */
+  /* Valores iniciais. O app.js recalcula os tres a partir do espaco real da
+     tela, pra que as duas fileiras encham a altura sem sobrar buraco. */
+  --altura-card: clamp(260px, calc((100vh - 196px) / 2 - 22px), 440px);
+  --largura-card: calc(var(--altura-card) * 9 / 16);
+  --largura-grade: calc(var(--largura-card) * 4 + 132px);
+
+  --curva: cubic-bezier(.22, .61, .36, 1);
+}
+
+* { box-sizing: border-box; margin: 0; padding: 0; }
+
+html, body {
+  height: 100%;
+  overflow: hidden;
+}
+
+body {
+  font-family: 'Segoe UI', system-ui, -apple-system, 'Helvetica Neue', Arial, sans-serif;
+  font-size: 18px;
+  color: var(--tinta);
+  background: var(--papel);
+  -webkit-font-smoothing: antialiased;
+}
+
+button, input { font-family: inherit; }
+
+::-webkit-scrollbar { width: 10px; height: 10px; }
+::-webkit-scrollbar-thumb { background: #D9CCD6; border-radius: 10px; }
+::-webkit-scrollbar-track { background: transparent; }
+
+/* ============================ ESTRUTURA ================================== */
+
+.aplicativo {
+  display: flex;
+  height: 100vh;
+  width: 100vw;
+}
+
+/* ---- trilho lateral: a moldura do LCS em volta da ferramenta ---- */
+.trilho {
+  width: 252px;
+  flex: 0 0 252px;
+  background: var(--tinta);
+  color: #FFF;
+  padding: 30px 26px;
+  display: flex;
+  flex-direction: column;
+  gap: 40px;
+}
+
+.trilho-marca { display: flex; align-items: center; gap: 13px; }
+
+.trilho-selo {
+  width: 46px; height: 46px;
+  flex: 0 0 46px;
+  border-radius: 13px;
+  background: var(--acento);
+  display: grid;
+  place-items: center;
+  font-weight: 800;
+  font-size: 17px;
+  letter-spacing: .04em;
+}
+
+.trilho-nome { font-size: 21px; font-weight: 700; letter-spacing: .01em; }
+
+.trilho-menu { display: flex; flex-direction: column; gap: 6px; }
+
+.trilho-item {
+  padding: 13px 16px;
+  border-radius: 12px;
+  font-size: 17px;
+  font-weight: 600;
+  color: rgba(255, 255, 255, .55);
+}
+
+.trilho-item.is-ativo {
+  background: rgba(255, 255, 255, .11);
+  color: #FFF;
+  box-shadow: inset 3px 0 0 var(--acento);
+}
+
+.trilho-rodape {
+  margin-top: auto;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  font-size: 15px;
+  color: rgba(255, 255, 255, .55);
+}
+
+.tecla {
+  border: 1px solid rgba(255, 255, 255, .3);
+  border-bottom-width: 3px;
+  border-radius: 7px;
+  padding: 3px 9px;
+  font-size: 13px;
+  font-weight: 700;
+  color: #FFF;
+}
+
+/* ---- palco: onde as telas trocam ---- */
+.palco { position: relative; flex: 1; min-width: 0; }
+
+.tela {
+  position: absolute;
+  inset: 0;
+  padding: 30px 46px 34px;
+  display: flex;
+  flex-direction: column;
+  opacity: 0;
+  visibility: hidden;
+  transform: translateY(14px);
+  transition: opacity .34s var(--curva), transform .34s var(--curva), visibility .34s;
+}
+
+.tela.is-ativa {
+  opacity: 1;
+  visibility: visible;
+  transform: none;
+}
+
+/* ============================ 1. ENTRADA ================================= */
+
+.tela--entrada { justify-content: center; align-items: center; }
+
+.entrada-caixa { width: min(680px, 100%); text-align: center; }
+
+.entrada-sobretitulo {
+  font-size: 16px;
+  font-weight: 800;
+  letter-spacing: .18em;
+  text-transform: uppercase;
+  color: var(--acento);
+  margin-bottom: 18px;
+}
+
+.entrada-titulo {
+  font-size: clamp(46px, 6vh, 74px);
+  line-height: 1.02;
+  font-weight: 800;
+  letter-spacing: -.02em;
+}
+
+.entrada-titulo span { color: var(--acento); }
+
+.entrada-apoio {
+  font-size: 22px;
+  color: var(--tinta-media);
+  margin: 20px 0 42px;
+}
+
+.entrada-form { text-align: left; }
+
+.entrada-rotulo {
+  display: block;
+  font-size: 21px;
+  font-weight: 700;
+  margin-bottom: 12px;
+}
+
+.entrada-campo {
+  width: 100%;
+  font-size: 26px;
+  font-weight: 600;
+  padding: 20px 24px;
+  border: 3px solid var(--linha);
+  border-radius: 16px;
+  background: #FFF;
+  color: var(--tinta);
+  outline: none;
+  transition: border-color .2s var(--curva), box-shadow .2s var(--curva);
+}
+
+.entrada-campo::placeholder { color: #B5A6B8; font-weight: 500; }
+
+.entrada-campo:focus {
+  border-color: var(--acento);
+  box-shadow: 0 0 0 5px rgba(214, 36, 110, .13);
+}
+
+.sugestoes { display: flex; flex-wrap: wrap; gap: 11px; margin: 20px 0 32px; }
+
+.sugestao {
+  border: 2px solid var(--linha);
+  background: #FFF;
+  color: var(--tinta);
+  font-size: 18px;
+  font-weight: 600;
+  padding: 12px 20px;
+  border-radius: 999px;
+  cursor: pointer;
+  transition: all .2s var(--curva);
+}
+
+.sugestao:hover { border-color: var(--acento); color: var(--acento); transform: translateY(-2px); }
+
+.sugestao.is-ativa { background: var(--acento); border-color: var(--acento); color: #FFF; }
+
+/* ============================ BOTÕES ===================================== */
+
+.botao {
+  border: 0;
+  border-radius: 14px;
+  font-size: 20px;
+  font-weight: 700;
+  padding: 18px 32px;
+  cursor: pointer;
+  transition: transform .18s var(--curva), background .2s var(--curva), box-shadow .2s var(--curva);
+}
+
+.botao--principal {
+  background: var(--acento);
+  color: #FFF;
+  box-shadow: 0 8px 22px rgba(214, 36, 110, .28);
+}
+
+.botao--principal:hover { background: var(--acento-escuro); transform: translateY(-2px); }
+.botao--principal:active { transform: translateY(0); }
+
+.botao--vazado {
+  background: transparent;
+  color: var(--tinta);
+  border: 2px solid var(--linha);
+  font-size: 17px;
+  padding: 13px 22px;
+}
+
+.botao--vazado:hover { border-color: var(--acento); color: var(--acento); }
+
+.botao--largo { width: 100%; }
+
+/* ============================ TOPO DAS TELAS ============================= */
+
+.topo {
+  display: flex;
+  align-items: flex-end;
+  justify-content: space-between;
+  gap: 28px;
+  padding-bottom: 20px;
+  margin-bottom: 4px;
+  flex: 0 0 auto;
+}
+
+.topo-titulo { font-size: 34px; font-weight: 800; letter-spacing: -.015em; }
+.topo-apoio { font-size: 18px; color: var(--tinta-media); margin-top: 5px; }
+
+/* filtro de nicho, sempre visivel no topo */
+/* Empilhado: titulo em cima, filtro numa fileira propria logo abaixo. Assim a
+   altura do topo nao depende da largura, e a grade pode ser medida com
+   seguranca (sem a grade e o topo ficarem se empurrando). */
+.topo--empilhado {
+  flex-direction: column;
+  align-items: stretch;
+  gap: 15px;
+}
+
+.filtro { display: flex; flex-wrap: wrap; gap: 9px; justify-content: flex-start; }
+
+.filtro-item {
+  border: 2px solid var(--linha);
+  background: #FFF;
+  color: var(--tinta-media);
+  font-size: 16px;
+  font-weight: 700;
+  padding: 10px 17px;
+  border-radius: 999px;
+  cursor: pointer;
+  transition: all .2s var(--curva);
+}
+
+.filtro-item:hover { border-color: var(--acento); color: var(--acento); }
+
+.filtro-item.is-ativo {
+  background: var(--tinta);
+  border-color: var(--tinta);
+  color: #FFF;
+}
+
+.filtro-item.is-ativo::before {
+  content: '';
+  display: inline-block;
+  width: 9px; height: 9px;
+  border-radius: 50%;
+  background: var(--acento);
+  margin-right: 9px;
+  vertical-align: middle;
+}
+
+/* ============================ 2. BIBLIOTECA ============================== */
+
+/* O topo usa a mesma largura da grade pra que o titulo fique alinhado com a
+   primeira miniatura, em vez de ficar solto no canto da tela. */
+.tela--biblioteca .topo {
+  width: var(--largura-grade);
+  max-width: 100%;
+  margin: 0 auto;
+}
+
+.grade {
+  flex: 1;
+  min-height: 0;
+  width: var(--largura-grade);
+  max-width: 100%;
+  margin: 0 auto;
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 22px 44px;
+  align-content: center;
+}
+
+.card {
+  position: relative;
+  width: 100%;
+  height: var(--altura-card);
+  border-radius: 20px;
+  overflow: hidden;
+  cursor: pointer;
+  border: 0;
+  padding: 0;
+  background: var(--tinta);
+  box-shadow: 0 6px 18px rgba(26, 16, 36, .13);
+  transition: transform .24s var(--curva), box-shadow .24s var(--curva);
+}
+
+.card img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+
+.card:hover { transform: translateY(-7px); box-shadow: 0 16px 34px rgba(26, 16, 36, .26); }
+
+.card::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  border-radius: 20px;
+  border: 3px solid transparent;
+  transition: border-color .24s var(--curva);
+  pointer-events: none;
+}
+
+.card:hover::after { border-color: var(--acento); }
+
+.card-etiqueta {
+  position: absolute;
+  top: 13px; left: 13px;
+  background: rgba(255, 255, 255, .94);
+  color: var(--tinta);
+  font-size: 14px;
+  font-weight: 800;
+  letter-spacing: .03em;
+  padding: 7px 13px;
+  border-radius: 999px;
+}
+
+.card-views {
+  position: absolute;
+  left: 0; right: 0; bottom: 0;
+  padding: 44px 16px 15px;
+  background: linear-gradient(to top, rgba(12, 6, 18, .93) 22%, rgba(12, 6, 18, 0));
+  text-align: left;
+}
+
+.card-numero {
+  display: block;
+  font-size: clamp(26px, 2.4vw, 34px);
+  font-weight: 800;
+  color: #FFF;
+  line-height: 1.05;
+  letter-spacing: -.02em;
+}
+
+.card-rotulo {
+  display: block;
+  font-size: 14px;
+  font-weight: 600;
+  color: rgba(255, 255, 255, .82);
+  margin-top: 2px;
+}
+
+/* ============================ 3. PAINEL MODELAR ========================== */
+
+.painel-fundo {
+  position: fixed;
+  inset: 0;
+  background: rgba(20, 10, 28, .58);
+  backdrop-filter: blur(5px);
+  display: grid;
+  place-items: center;
+  opacity: 0;
+  visibility: hidden;
+  transition: opacity .28s var(--curva), visibility .28s;
+  z-index: 40;
+}
+
+.painel-fundo.is-ativo { opacity: 1; visibility: visible; }
+
+.painel {
+  position: relative;
+  display: flex;
+  gap: 40px;
+  background: var(--papel);
+  border-radius: 26px;
+  padding: 38px;
+  width: min(940px, 92vw);
+  box-shadow: 0 30px 80px rgba(20, 10, 28, .42);
+  transform: translateY(18px) scale(.97);
+  transition: transform .3s var(--curva);
+}
+
+.painel-fundo.is-ativo .painel { transform: none; }
+
+.painel-mini {
+  flex: 0 0 auto;
+  width: min(268px, 30vw);
+  aspect-ratio: 9 / 16;
+  max-height: 62vh;
+  border-radius: 18px;
+  overflow: hidden;
+  background: var(--tinta);
+}
+
+.painel-mini img { width: 100%; height: 100%; object-fit: cover; display: block; }
+
+.painel-texto { display: flex; flex-direction: column; min-width: 0; }
+
+.etiqueta {
+  align-self: flex-start;
+  background: rgba(214, 36, 110, .12);
+  color: var(--acento);
+  font-size: 15px;
+  font-weight: 800;
+  letter-spacing: .04em;
+  padding: 8px 15px;
+  border-radius: 999px;
+}
+
+.painel-titulo {
+  font-size: clamp(28px, 3vw, 38px);
+  font-weight: 800;
+  line-height: 1.16;
+  letter-spacing: -.015em;
+  margin: 18px 0 12px;
+}
+
+.painel-views { font-size: 21px; font-weight: 700; color: var(--tinta-media); }
+
+.painel-apoio {
+  font-size: 19px;
+  color: var(--tinta-media);
+  line-height: 1.5;
+  margin: 20px 0 auto;
+  padding-bottom: 26px;
+}
+
+.painel-fechar {
+  position: absolute;
+  top: 14px; right: 18px;
+  border: 0;
+  background: transparent;
+  font-size: 34px;
+  line-height: 1;
+  color: var(--tinta-media);
+  cursor: pointer;
+  padding: 6px 10px;
+  border-radius: 10px;
+}
+
+.painel-fechar:hover { color: var(--acento); }
+
+/* ============================ 4. CRIAÇÃO ================================= */
+
+.criacao {
+  flex: 1;
+  min-height: 0;
+  display: grid;
+  grid-template-columns: 1.05fr .95fr;
+  gap: clamp(28px, 3.5vw, 60px);
+  align-items: center;
+}
+
+.criacao-referencia { display: flex; gap: 26px; min-width: 0; }
+
+.criacao-mini {
+  flex: 0 0 auto;
+  width: clamp(190px, 27vh, 330px);
+  aspect-ratio: 9 / 16;
+  border-radius: 16px;
+  overflow: hidden;
+  background: var(--tinta);
+}
+
+.criacao-mini img { width: 100%; height: 100%; object-fit: cover; display: block; }
+
+.criacao-texto { display: flex; flex-direction: column; min-width: 0; }
+
+.criacao-titulo {
+  font-size: 30px;
+  font-weight: 800;
+  line-height: 1.2;
+  margin: 14px 0 8px;
+}
+
+.criacao-views { font-size: 18px; font-weight: 700; color: var(--tinta-media); }
+
+.bloco-referencia {
+  margin-top: 20px;
+  background: #FFF;
+  border: 2px solid var(--linha);
+  border-left: 6px solid var(--acento);
+  border-radius: 14px;
+  padding: 20px 22px;
+}
+
+.bloco-rotulo {
+  display: block;
+  font-size: 14px;
+  font-weight: 800;
+  letter-spacing: .1em;
+  text-transform: uppercase;
+  color: var(--acento);
+  margin-bottom: 10px;
+}
+
+.bloco-corpo { font-size: 21px; line-height: 1.6; color: var(--tinta); }
+
+.criacao-escolha { display: flex; flex-direction: column; }
+
+.escolha-pergunta { font-size: 30px; font-weight: 800; margin-bottom: 22px; }
+
+.escolha-botoes { display: flex; flex-direction: column; gap: 16px; margin-bottom: 26px; }
+
+.escolha {
+  text-align: left;
+  border: 3px solid var(--linha);
+  background: #FFF;
+  border-radius: 18px;
+  padding: 28px 30px;
+  cursor: pointer;
+  transition: all .22s var(--curva);
+}
+
+.escolha:hover { border-color: #C9B7C6; transform: translateY(-2px); }
+
+.escolha-titulo {
+  display: block;
+  font-size: 25px;
+  font-weight: 800;
+  letter-spacing: .01em;
+  margin-bottom: 8px;
+}
+
+.escolha-apoio { display: block; font-size: 18px; color: var(--tinta-media); line-height: 1.45; }
+
+.escolha.is-ativa {
+  border-color: var(--acento);
+  background: rgba(214, 36, 110, .07);
+  transform: none;
+}
+
+.escolha.is-ativa .escolha-titulo { color: var(--acento); }
+
+/* ============================ 5. RESULTADO =============================== */
+
+.quadro {
+  flex: 1;
+  min-height: 0;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: clamp(24px, 2.6vw, 44px);
+  align-items: start;   /* as caixas param onde o texto termina */
+}
+
+.coluna {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  min-height: 0;
+  max-height: 100%;
+}
+
+.secao {
+  background: #FFF;
+  border: 2px solid var(--linha);
+  border-radius: 20px;
+  padding: 30px 34px;
+  display: flex;
+  flex-direction: column;
+  min-height: 0;
+  max-height: 100%;
+  overflow: auto;
+}
+
+.secao--ganchos { min-height: 0; }
+
+.secao-topo {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+  margin-bottom: 4px;
+}
+
+.secao-nome {
+  font-size: 26px;
+  font-weight: 800;
+  letter-spacing: .1em;
+  color: var(--acento);
+}
+
+.secao-dica { font-size: 17px; color: var(--tinta-media); margin: 6px 0 16px; }
+
+.secao-corpo {
+  font-size: 24px;
+  line-height: 1.6;
+  margin-top: 14px;
+  color: var(--tinta);
+}
+
+.copiar {
+  flex: 0 0 auto;
+  border: 2px solid var(--linha);
+  background: #FFF;
+  color: var(--tinta-media);
+  font-size: 15px;
+  font-weight: 700;
+  padding: 9px 17px;
+  border-radius: 999px;
+  cursor: pointer;
+  transition: all .2s var(--curva);
+}
+
+.copiar:hover { border-color: var(--acento); color: var(--acento); }
+
+.copiar.is-feito { background: var(--acento); border-color: var(--acento); color: #FFF; }
+
+.ganchos { display: flex; flex-direction: column; gap: 13px; }
+
+.gancho {
+  display: flex;
+  gap: 16px;
+  align-items: flex-start;
+  text-align: left;
+  border: 3px solid var(--linha);
+  background: #FFF;
+  border-radius: 16px;
+  padding: 22px 24px;
+  cursor: pointer;
+  transition: all .2s var(--curva);
+}
+
+.gancho:hover { border-color: #C9B7C6; }
+
+.gancho-numero {
+  flex: 0 0 auto;
+  width: 40px; height: 40px;
+  border-radius: 50%;
+  background: var(--linha);
+  color: var(--tinta-media);
+  display: grid;
+  place-items: center;
+  font-size: 16px;
+  font-weight: 800;
+  transition: all .2s var(--curva);
+}
+
+.gancho-texto { font-size: 22px; line-height: 1.5; font-weight: 600; }
+
+.gancho.is-ativa { border-color: var(--acento); background: rgba(214, 36, 110, .07); }
+.gancho.is-ativa .gancho-numero { background: var(--acento); color: #FFF; }
+
+.rodape {
+  flex: 0 0 auto;
+  display: flex;
+  justify-content: flex-end;
+  gap: 14px;
+  padding-top: 20px;
+}
+
+/* ============================ GERAÇÃO ==================================== */
+
+.geracao {
+  position: fixed;
+  inset: 0;
+  background: rgba(255, 251, 247, .93);
+  backdrop-filter: blur(7px);
+  display: grid;
+  place-items: center;
+  opacity: 0;
+  visibility: hidden;
+  transition: opacity .26s var(--curva), visibility .26s;
+  z-index: 60;
+}
+
+.geracao.is-ativo { opacity: 1; visibility: visible; }
+
+.geracao-caixa { text-align: center; width: min(460px, 86vw); }
+
+.geracao-anel {
+  width: 62px; height: 62px;
+  margin: 0 auto 26px;
+  border-radius: 50%;
+  border: 6px solid rgba(214, 36, 110, .18);
+  border-top-color: var(--acento);
+  animation: girar .9s linear infinite;
+}
+
+@keyframes girar { to { transform: rotate(360deg); } }
+
+.geracao-texto {
+  font-size: 23px;
+  font-weight: 700;
+  color: var(--tinta);
+  margin-bottom: 22px;
+  min-height: 30px;
+}
+
+.geracao-barra {
+  height: 10px;
+  border-radius: 999px;
+  background: rgba(26, 16, 36, .1);
+  overflow: hidden;
+}
+
+.geracao-barra span {
+  display: block;
+  height: 100%;
+  width: 0;
+  border-radius: 999px;
+  background: var(--acento);
+}
+
+/* ============================ AVISO ====================================== */
+
+.aviso {
+  position: fixed;
+  left: 50%;
+  bottom: 42px;
+  transform: translate(-50%, 24px);
+  background: var(--tinta);
+  color: #FFF;
+  font-size: 19px;
+  font-weight: 700;
+  padding: 17px 30px;
+  border-radius: 999px;
+  box-shadow: 0 14px 34px rgba(20, 10, 28, .3);
+  opacity: 0;
+  visibility: hidden;
+  transition: opacity .24s var(--curva), transform .24s var(--curva), visibility .24s;
+  z-index: 80;
+  pointer-events: none;
+}
+
+.aviso.is-ativo { opacity: 1; visibility: visible; transform: translate(-50%, 0); }
+
+/* ============================ TELAS MENORES ============================== */
+
+@media (max-width: 1240px) {
+  .trilho { width: 210px; flex-basis: 210px; }
+  .criacao { grid-template-columns: 1fr; gap: 26px; overflow: auto; }
+  .quadro { grid-template-columns: 1fr; overflow: auto; }
+  .grade { grid-template-columns: repeat(3, 1fr); overflow: auto; }
+}
+
+@media (max-height: 760px) {
+  .tela { padding: 22px 34px 26px; }
+  .topo-titulo { font-size: 28px; }
+}

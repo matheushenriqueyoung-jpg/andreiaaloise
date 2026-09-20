@@ -1,0 +1,189 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Roteirista de Bolso — LCS</title>
+<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><rect width='100' height='100' rx='24' fill='%23D6246E'/><rect x='30' y='24' width='40' height='52' rx='6' fill='white'/></svg>">
+<link rel="stylesheet" href="estilo.css">
+</head>
+<body>
+
+<div class="aplicativo">
+
+  <!-- ===================== TRILHO LATERAL (moldura do LCS) ================ -->
+  <aside class="trilho">
+    <div class="trilho-marca">
+      <div class="trilho-selo" id="selo-lcs">LCS</div>
+      <div class="trilho-nome" id="trilho-plataforma">LCS</div>
+    </div>
+
+    <nav class="trilho-menu">
+      <span class="trilho-item">Início</span>
+      <span class="trilho-item">Calendário</span>
+      <span class="trilho-item is-ativo" id="trilho-produto">Roteirista de Bolso</span>
+      <span class="trilho-item">Meus roteiros</span>
+    </nav>
+
+    <div class="trilho-rodape">
+      <span class="tecla">Esc</span>
+      <span>recomeça do zero</span>
+    </div>
+  </aside>
+
+  <!-- ===================== ÁREA PRINCIPAL ================================ -->
+  <main class="palco">
+
+    <!-- ---------- 1. ENTRADA ------------------------------------------- -->
+    <section class="tela tela--entrada is-ativa" id="tela-entrada">
+      <div class="entrada-caixa">
+        <p class="entrada-sobretitulo">Ferramenta LCS</p>
+        <h1 class="entrada-titulo">Roteirista<br><span>de Bolso</span></h1>
+        <p class="entrada-apoio">Escolhe o que você faz que eu te mostro o que já deu certo.</p>
+
+        <form class="entrada-form" id="form-entrada" autocomplete="off">
+          <label class="entrada-rotulo" for="campo-nicho">Qual é o seu nicho?</label>
+          <input class="entrada-campo" id="campo-nicho" type="text" placeholder="moda, crochê, beleza…" spellcheck="false">
+
+          <div class="sugestoes" id="sugestoes"></div>
+
+          <button class="botao botao--principal botao--largo" type="submit">Ver referências</button>
+        </form>
+      </div>
+    </section>
+
+    <!-- ---------- 2. BIBLIOTECA ---------------------------------------- -->
+    <section class="tela tela--biblioteca" id="tela-biblioteca">
+      <header class="topo topo--empilhado">
+        <div class="topo-texto">
+          <h2 class="topo-titulo">Biblioteca de referências</h2>
+          <p class="topo-apoio" id="biblioteca-apoio">8 vídeos que viralizaram</p>
+        </div>
+        <div class="filtro" id="filtro"></div>
+      </header>
+
+      <div class="grade" id="grade"></div>
+    </section>
+
+    <!-- ---------- 4. CRIAÇÃO ------------------------------------------- -->
+    <section class="tela tela--criacao" id="tela-criacao">
+      <header class="topo">
+        <div class="topo-texto">
+          <h2 class="topo-titulo">Criação</h2>
+          <p class="topo-apoio">Roteiro de referência carregado</p>
+        </div>
+        <button class="botao botao--vazado" id="voltar-biblioteca" type="button">Voltar para a biblioteca</button>
+      </header>
+
+      <div class="criacao">
+        <div class="criacao-referencia">
+          <div class="criacao-mini" id="criacao-mini"></div>
+          <div class="criacao-texto">
+            <span class="etiqueta" id="criacao-etiqueta">Moda</span>
+            <h3 class="criacao-titulo" id="criacao-titulo"></h3>
+            <p class="criacao-views" id="criacao-views"></p>
+            <div class="bloco-referencia">
+              <span class="bloco-rotulo">Roteiro do vídeo original</span>
+              <p class="bloco-corpo" id="criacao-roteiro"></p>
+            </div>
+          </div>
+        </div>
+
+        <div class="criacao-escolha">
+          <h3 class="escolha-pergunta">Como você quer terminar o seu vídeo?</h3>
+          <div class="escolha-botoes">
+            <button class="escolha" data-final="comentario" type="button">
+              <span class="escolha-titulo">Pedindo COMENTÁRIO</span>
+              <span class="escolha-apoio">Ela termina fazendo uma pergunta que dá vontade de responder.</span>
+            </button>
+            <button class="escolha" data-final="seguir" type="button">
+              <span class="escolha-titulo">Pedindo SEGUIR</span>
+              <span class="escolha-apoio">Ela termina mostrando por que vale a pena ficar no seu perfil.</span>
+            </button>
+          </div>
+          <button class="botao botao--principal botao--largo" id="botao-gerar" type="button">Gerar meu roteiro</button>
+        </div>
+      </div>
+    </section>
+
+    <!-- ---------- 5. RESULTADO ----------------------------------------- -->
+    <section class="tela tela--resultado" id="tela-resultado">
+      <header class="topo">
+        <div class="topo-texto">
+          <h2 class="topo-titulo">Seu roteiro</h2>
+          <p class="topo-apoio" id="resultado-apoio"></p>
+        </div>
+        <button class="botao botao--vazado" id="voltar-criacao" type="button">Trocar referência</button>
+      </header>
+
+      <div class="quadro">
+        <!-- coluna 1 -->
+        <section class="secao secao--ganchos">
+          <div class="secao-topo">
+            <h3 class="secao-nome">GANCHO TRAILER</h3>
+            <button class="copiar" data-copiar="gancho" type="button">Copiar</button>
+          </div>
+          <p class="secao-dica">Escolhe o seu. O primeiro já vem marcado.</p>
+          <div class="ganchos" id="ganchos"></div>
+        </section>
+
+        <!-- coluna 2 -->
+        <div class="coluna">
+          <section class="secao">
+            <div class="secao-topo">
+              <h3 class="secao-nome">CORPO CLÍMAX</h3>
+              <button class="copiar" data-copiar="corpo" type="button">Copiar</button>
+            </div>
+            <p class="secao-corpo" id="corpo"></p>
+          </section>
+
+          <section class="secao">
+            <div class="secao-topo">
+              <h3 class="secao-nome">FECHAMENTO FANTASMA</h3>
+              <button class="copiar" data-copiar="fechamento" type="button">Copiar</button>
+            </div>
+            <p class="secao-corpo" id="fechamento"></p>
+          </section>
+        </div>
+      </div>
+
+      <footer class="rodape">
+        <button class="botao botao--vazado" id="botao-regerar" type="button">Gerar novamente</button>
+        <button class="botao botao--principal" id="botao-salvar" type="button">Salvar roteiro</button>
+      </footer>
+    </section>
+
+  </main>
+</div>
+
+<!-- ===================== 3. PAINEL MODELAR =============================== -->
+<div class="painel-fundo" id="painel-fundo">
+  <div class="painel" role="dialog" aria-modal="true" aria-label="Modelar roteiro">
+    <button class="painel-fechar" id="painel-fechar" type="button" aria-label="Fechar">×</button>
+    <div class="painel-mini" id="painel-mini"></div>
+    <div class="painel-texto">
+      <span class="etiqueta" id="painel-etiqueta"></span>
+      <h3 class="painel-titulo" id="painel-titulo"></h3>
+      <p class="painel-views" id="painel-views"></p>
+      <p class="painel-apoio">A gente pega a estrutura desse vídeo e escreve o seu, com as suas palavras.</p>
+      <button class="botao botao--principal botao--largo" id="botao-modelar" type="button">MODELAR ROTEIRO</button>
+    </div>
+  </div>
+</div>
+
+<!-- ===================== ANIMAÇÃO DE GERAÇÃO ============================ -->
+<div class="geracao" id="geracao">
+  <div class="geracao-caixa">
+    <div class="geracao-anel"></div>
+    <p class="geracao-texto" id="geracao-texto">Lendo o vídeo de referência…</p>
+    <div class="geracao-barra"><span id="geracao-progresso"></span></div>
+  </div>
+</div>
+
+<!-- ===================== AVISO (toast) ================================== -->
+<div class="aviso" id="aviso"></div>
+
+<script src="dados/conteudo.js"></script>
+<script src="app.js"></script>
+</body>
+</html>
