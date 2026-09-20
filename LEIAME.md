@@ -196,6 +196,17 @@ tudo foi conferido por completo, num navegador de verdade:
 
 Em telas mais baixas (1600x900, 1440x900, 1366x768, 1280x720) a grade também
 mostra as duas fileiras inteiras, sem rolagem e mantendo o formato 9:16. Na tela
-de resultado, o tamanho do texto acompanha a altura da janela: em 1080 ele fica
-no tamanho cheio, e em telas mais baixas encolhe o necessário para o roteiro
-caber inteiro sem rolagem.
+de resultado, o tamanho do texto acompanha a altura da janela: em 1080 fica no
+tamanho cheio (corpo em 24px) e vai encolhendo conforme a tela baixa.
+
+Em 1600x900 todos os roteiros ainda cabem inteiros. **De 1440x900 para baixo,
+os seis roteiros mais longos passam um pouco da altura da caixa** e a caixa
+rola alguns pixels (no pior caso, 1280x720, cerca de 65px). Nada some e nada
+fica cortado — só exige um rolar curto para ler o fim do parágrafo. É por isso
+que a recomendação de gravar em 1920x1080 não é só estética: é a resolução em
+que nenhum roteiro precisa rolar.
+
+Se você precisar gravar numa tela mais baixa e quiser que tudo caiba sem rolar,
+o caminho mais simples é encurtar o `corpo` dos roteiros mais longos no
+`dados/conteudo.js` — os campeões são `maternidade-04`, `servicos-04`,
+`servicos-08`, `servicos-01`, `servicos-07` e `servicos-05`.

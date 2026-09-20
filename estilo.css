@@ -587,7 +587,9 @@ button, input { font-family: inherit; }
   flex: 1;
   min-height: 0;
   display: grid;
-  grid-template-columns: 1fr 1fr;
+  /* A coluna dos ganchos sobra espaco e a do corpo falta, entao o corpo leva
+     a fatia maior: o texto quebra em menos linhas e cabe em mais telas. */
+  grid-template-columns: 0.82fr 1.18fr;
   gap: clamp(24px, 2.6vw, 44px);
   align-items: start;   /* as caixas param onde o texto termina */
 }
