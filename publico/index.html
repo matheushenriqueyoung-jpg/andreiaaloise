@@ -8,6 +8,12 @@
  * ==========================================================================*/
 
 :root {
+  /* A ferramenta assume uma aparencia clara unica, de proposito: ela e
+     gravada em video e precisa sair igual em qualquer maquina. Sem isto, o
+     tema escuro do sistema pinta o texto dos botoes de branco e alguns
+     ficam brancos no branco. */
+  color-scheme: light;
+
   --acento: #D6246E;
   --acento-escuro: #A8154F;
   --tinta: #1A1024;
@@ -222,6 +228,7 @@ button, input { font-family: inherit; }
 
 .botao {
   border: 0;
+  color: var(--tinta);
   border-radius: 14px;
   font-size: 20px;
   font-weight: 700;
@@ -332,6 +339,7 @@ button, input { font-family: inherit; }
 
 .card {
   position: relative;
+  color: var(--tinta);
   width: 100%;
   height: var(--altura-card);
   border-radius: 20px;
@@ -556,6 +564,7 @@ button, input { font-family: inherit; }
 
 .escolha {
   text-align: left;
+  color: var(--tinta);
   border: 3px solid var(--linha);
   background: #FFF;
   border-radius: 18px;
@@ -568,6 +577,7 @@ button, input { font-family: inherit; }
 
 .escolha-titulo {
   display: block;
+  color: var(--tinta);
   font-size: 25px;
   font-weight: 800;
   letter-spacing: .01em;
@@ -664,6 +674,7 @@ button, input { font-family: inherit; }
 
 .gancho {
   display: flex;
+  color: var(--tinta);
   gap: 16px;
   align-items: flex-start;
   text-align: left;
@@ -690,7 +701,7 @@ button, input { font-family: inherit; }
   transition: all .2s var(--curva);
 }
 
-.gancho-texto { font-size: clamp(16px, 2.04vh, 22px); line-height: 1.45; font-weight: 600; }
+.gancho-texto { font-size: clamp(16px, 2.04vh, 22px); line-height: 1.45; font-weight: 600; color: var(--tinta); }
 
 .gancho.is-ativa { border-color: var(--acento); background: rgba(214, 36, 110, .07); }
 .gancho.is-ativa .gancho-numero { background: var(--acento); color: #FFF; }
