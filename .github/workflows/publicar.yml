@@ -1,0 +1,62 @@
+# Publica a ferramenta no GitHub Pages a cada envio para a branch principal.
+# O link fica em https://matheushenriqueyoung-jpg.github.io/andreiaaloise/
+#
+# Nao precisa configurar nada a mao: o passo "configure-pages" liga o Pages
+# sozinho na primeira vez que este fluxo roda.
+
+name: Publicar no GitHub Pages
+
+on:
+  push:
+    branches: [claude/fervent-hypatia-n3ib0m]
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
+# Se dois envios acontecerem juntos, o mais novo manda.
+concurrency:
+  group: pages
+  cancel-in-progress: true
+
+jobs:
+  publicar:
+    runs-on: ubuntu-latest
+    environment:
+      name: github-pages
+      url: ${{ steps.publicacao.outputs.page_url }}
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+
+      # Gera publico/index.html a partir dos arquivos do projeto, para o que
+      # vai pro ar ser sempre o conteudo atual e nunca um arquivo esquecido.
+      - name: Gerar a pagina
+        run: npm run publicar
+
+      # O artefato do Claude nao entra na hospedagem publica.
+      - name: Deixar so a pagina completa
+        run: rm -f publico/artefato.html
+
+      - name: Conferir se a pagina saiu inteira
+        run: |
+          test -s publico/index.html
+          grep -q 'GANCHO TRAILER' publico/index.html
+          grep -q 'name="viewport"' publico/index.html
+          echo "Pagina gerada com $(wc -c < publico/index.html) bytes."
+
+      - uses: actions/configure-pages@v5
+        with:
+          enablement: true
+
+      - uses: actions/upload-pages-artifact@v3
+        with:
+          path: publico
+
+      - id: publicacao
+        uses: actions/deploy-pages@v4
