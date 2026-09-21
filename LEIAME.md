@@ -40,12 +40,36 @@ lógica todos embutidos dentro dele. Esse arquivo sozinho é a aplicação intei
 Rode de novo sempre que editar `dados/conteudo.js`, senão o link continua com os
 textos antigos.
 
-Onde hospedar esse arquivo (qualquer um serve, ele não precisa de servidor):
+São gerados dois arquivos, porque os destinos pedem coisas diferentes:
 
-- publique como artefato pelo Claude e use o link gerado;
-- ou jogue numa hospedagem estática (Netlify, Vercel, GitHub Pages) arrastando a
-  pasta `publico/`;
-- ou abra o arquivo direto no navegador com duplo clique.
+- **`publico/index.html`** — página completa, com `charset` e `viewport`. É esta
+  que vai para qualquer hospedagem comum.
+- **`publico/artefato.html`** — a mesma página sem a casca do documento, para
+  publicar como artefato do Claude, que fornece a casca por conta própria.
+
+### GitHub Pages (link público e automático)
+
+O repositório já tem o fluxo `.github/workflows/publicar.yml`, que gera e
+publica a página a cada envio. Falta **um ajuste manual, uma única vez**:
+
+> **Settings → Pages → Build and deployment → Source: GitHub Actions**
+
+Ligar o Pages exige permissão de admin do repositório, que o token do fluxo não
+tem — por isso esse passo não dá para automatizar. Depois dele, o endereço fica:
+
+```
+https://matheushenriqueyoung-jpg.github.io/andreiaaloise/
+```
+
+e toda publicação passa a ser automática: edite `dados/conteudo.js`, envie, e o
+link se atualiza sozinho.
+
+### Outras opções
+
+- Arraste a pasta `publico/` para Netlify ou Vercel.
+- Publique `publico/artefato.html` como artefato do Claude (o link nasce privado;
+  para outras pessoas abrirem, use o menu **Share** da própria página).
+- Abra `publico/index.html` direto no navegador com duplo clique.
 
 ---
 

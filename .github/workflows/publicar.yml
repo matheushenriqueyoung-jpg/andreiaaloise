@@ -1,8 +1,13 @@
 # Publica a ferramenta no GitHub Pages a cada envio para a branch principal.
 # O link fica em https://matheushenriqueyoung-jpg.github.io/andreiaaloise/
 #
-# Nao precisa configurar nada a mao: o passo "configure-pages" liga o Pages
-# sozinho na primeira vez que este fluxo roda.
+# PRECISA DE UM AJUSTE MANUAL, UMA UNICA VEZ:
+#
+#   Settings > Pages > Build and deployment > Source: GitHub Actions
+#
+# Ligar o Pages exige permissao de admin do repositorio, que o token deste
+# fluxo nao tem. Depois desse ajuste, toda publicacao daqui pra frente e
+# automatica e nada mais precisa ser feito a mao.
 
 name: Publicar no GitHub Pages
 
@@ -50,9 +55,9 @@ jobs:
           grep -q 'name="viewport"' publico/index.html
           echo "Pagina gerada com $(wc -c < publico/index.html) bytes."
 
+      # Se este passo falhar com "Get Pages site failed / Not Found", o
+      # ajuste manual descrito no topo do arquivo ainda nao foi feito.
       - uses: actions/configure-pages@v5
-        with:
-          enablement: true
 
       - uses: actions/upload-pages-artifact@v3
         with:
