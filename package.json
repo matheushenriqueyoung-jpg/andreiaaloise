@@ -5,6 +5,7 @@
   "description": "Roteirista de Bolso — ferramenta do LCS. Aplicacao estatica, sem backend, sem API, 100% deterministica.",
   "scripts": {
     "start": "node servidor.js",
-    "dev": "node servidor.js"
+    "dev": "node servidor.js",
+    "publicar": "node construir.js"
   }
 }

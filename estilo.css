@@ -50,8 +50,8 @@ button, input { font-family: inherit; }
 
 .aplicativo {
   display: flex;
-  height: 100vh;
-  width: 100vw;
+  height: 100%;
+  width: 100%;
 }
 
 /* ---- trilho lateral: a moldura do LCS em volta da ferramenta ---- */
@@ -788,4 +788,72 @@ button, input { font-family: inherit; }
 @media (max-height: 760px) {
   .tela { padding: 22px 34px 26px; }
   .topo-titulo { font-size: 28px; }
+}
+
+
+/* ============================ CELULAR ====================================
+ * A ferramenta foi desenhada para tela cheia de desktop, que e onde ela vai
+ * ser gravada. Este bloco existe so para que o link aberto no celular
+ * continue legivel e utilizavel, em vez de aparecer quebrado.
+ * ========================================================================*/
+
+@media (max-width: 860px) {
+  html, body { height: auto; overflow: auto; }
+
+  .aplicativo { flex-direction: column; height: auto; min-height: 100%; }
+
+  .trilho {
+    width: 100%;
+    flex: 0 0 auto;
+    flex-direction: row;
+    align-items: center;
+    gap: 14px;
+    padding: 14px 16px;
+  }
+
+  .trilho-menu, .trilho-rodape { display: none; }
+  .trilho-marca { gap: 10px; }
+  .trilho-selo { width: 36px; height: 36px; flex-basis: 36px; font-size: 14px; }
+  .trilho-nome { font-size: 17px; }
+
+  .palco { position: static; flex: 1 1 auto; }
+
+  .tela {
+    position: static;
+    display: none;
+    padding: 22px 16px 28px;
+    transform: none;
+  }
+
+  .tela.is-ativa { display: flex; opacity: 1; visibility: visible; }
+
+  .topo { flex-direction: column; align-items: stretch; gap: 14px; }
+  .topo-titulo { font-size: 26px; }
+  .filtro { justify-content: flex-start; }
+
+  .grade {
+    width: 100%;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 14px;
+    align-content: start;
+  }
+
+  .card { height: auto; aspect-ratio: 9 / 16; }
+
+  .entrada-titulo { font-size: 40px; }
+  .entrada-apoio { font-size: 18px; }
+  .entrada-campo { font-size: 20px; }
+
+  .criacao, .quadro { grid-template-columns: 1fr; overflow: visible; }
+  .criacao-referencia { flex-direction: column; }
+  .criacao-mini { width: 150px; }
+  .coluna, .secao { max-height: none; overflow: visible; }
+  .secao-corpo { font-size: 18px; }
+  .gancho-texto { font-size: 17px; }
+
+  .painel { flex-direction: column; gap: 20px; padding: 24px; max-height: 88vh; overflow: auto; }
+  .painel-mini { width: 150px; align-self: center; }
+
+  .rodape { flex-direction: column-reverse; }
+  .rodape .botao { width: 100%; }
 }

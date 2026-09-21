@@ -25,6 +25,30 @@ Abra **http://localhost:4321** no navegador e coloque em tela cheia (F11).
 
 ---
 
+## 1b. Como publicar num link público
+
+`npm start` só funciona na sua própria máquina — `localhost` é o seu computador,
+ninguém mais alcança esse endereço. Para ter um link que abre de qualquer lugar:
+
+```
+npm run publicar
+```
+
+Isso gera **`publico/index.html`**: um arquivo único, com o estilo, os textos e a
+lógica todos embutidos dentro dele. Esse arquivo sozinho é a aplicação inteira.
+
+Rode de novo sempre que editar `dados/conteudo.js`, senão o link continua com os
+textos antigos.
+
+Onde hospedar esse arquivo (qualquer um serve, ele não precisa de servidor):
+
+- publique como artefato pelo Claude e use o link gerado;
+- ou jogue numa hospedagem estática (Netlify, Vercel, GitHub Pages) arrastando a
+  pasta `publico/`;
+- ou abra o arquivo direto no navegador com duplo clique.
+
+---
+
 ## 2. O atalho da gravação
 
 **`Esc` limpa tudo e volta para a tela inicial.** Sem recarregar a página, sem
@@ -176,7 +200,9 @@ estilo.css          aparência (as cores vêm do arquivo de conteúdo)
 app.js              lógica: navegação, geração, copiar, salvar, atalho Esc
 dados/conteudo.js   ► TODO O CONTEÚDO EDITÁVEL ESTÁ AQUI
 servidor.js         servidor estático, sem nenhuma dependência externa
-package.json        o comando npm start
+construir.js        gera a versão de arquivo único para hospedar
+publico/index.html  ► gerado por npm run publicar (não edite à mão)
+package.json        os comandos npm start e npm run publicar
 ```
 
 ---
@@ -205,6 +231,9 @@ rola alguns pixels (no pior caso, 1280x720, cerca de 65px). Nada some e nada
 fica cortado — só exige um rolar curto para ler o fim do parágrafo. É por isso
 que a recomendação de gravar em 1920x1080 não é só estética: é a resolução em
 que nenhum roteiro precisa rolar.
+
+Aberta no celular, a ferramenta se reorganiza numa coluna só para continuar
+legível, mas ela foi desenhada para desktop — é lá que a gravação acontece.
 
 Se você precisar gravar numa tela mais baixa e quiser que tudo caiba sem rolar,
 o caminho mais simples é encurtar o `corpo` dos roteiros mais longos no
